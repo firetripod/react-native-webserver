@@ -3,7 +3,7 @@
 ## Install
 
 ```shell
-npm install --save @react-native-library/webserver
+npm install --save @firetripod/webserver
 ```
 
 ## Automatically link
@@ -11,15 +11,15 @@ npm install --save @react-native-library/webserver
 #### With React Native 0.27+
 
 ```shell
-react-native link @react-native-library/webserver
+react-native link @firetripod/webserver
 ```
 
 ## Example
 
-First import @react-native-library/webserver:
+First import @firetripod/webserver:
 
 ```js
-import { HttpServer } from "@react-native-library/webserver";
+import { HttpServer } from "@firetripod/webserver";
 ```
 
 Initalize the server in the `componentWillMount` lifecycle method. You need to provide a `port` and a callback.

@@ -1,12 +1,12 @@
 {
-  "name": "@react-native-library/webserver",
+  "name": "@firetripod/webserver",
   "version": "1.0.3",
   "description": "A simple HTTP server for React Native apps",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-native-community-library/react-native-webserver.git"
+    "url": "https://github.com/firetripod/react-native-webserver.git"
   },
   "keywords": [
     "react-component",
@@ -17,10 +17,10 @@
     "server",
     "bridge"
   ],
-  "author": "luoxuhai <darkce97@gmail.com> (https://github.com/luoxuhai)",
+  "author": "firetripod (https://github.com/firetripod)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/react-native-community-library/react-native-webserver/issues"
+    "url": "https://github.com/firetripod/react-native-webserver/issues"
   },
-  "homepage": "https://github.com/react-native-community-library/react-native-webserver#readme"
+  "homepage": "https://github.com/firetripod/react-native-webserver#readme"
 }
