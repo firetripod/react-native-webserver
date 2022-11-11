@@ -28,12 +28,15 @@ RCT_EXPORT_MODULE();
 {
  return @{ @"HTTP_SERVER_RESPONSE_RECEIVED": HTTP_SERVER_RESPONSE_RECEIVED };
 }
-
++ (BOOL)requiresMainQueueSetup
+{
+  return NO;  // only do this if your module initialization relies on calling UIKit!
+}
 - (void)initResponseReceivedFor:(GCDWebServer *)server method:(NSString*)method {
     [server addDefaultHandlerForMethod:method
                           requestClass:[GCDWebServerMultiPartFormRequest class]
                      asyncProcessBlock:^(GCDWebServerRequest* request, GCDWebServerCompletionBlock completionBlock) {
-        
+
         long long milliseconds = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
         int random = arc4random_uniform(1000000);
         NSString *requestId = [NSString stringWithFormat:@"%lld-%d", milliseconds, random];
@@ -66,7 +69,7 @@ RCT_EXPORT_MODULE();
                                                                     @"url": request.URL.relativeString,
                                                                     @"query": request.query,
                                                                     @"headers": request.headers}];
-                
+
             } else {
                 [self sendEventWithName:HTTP_SERVER_RESPONSE_RECEIVED
                                                              body:@{@"requestId": requestId,
@@ -97,7 +100,7 @@ RCT_EXPORT_METHOD(start:(NSInteger) port
     dispatch_sync(dispatch_get_main_queue(), ^{
         @try {
             _webServer = [[GCDWebServer alloc] init];
-            
+
             [self initResponseReceivedFor:_webServer method:@"POST"];
             [self initResponseReceivedFor:_webServer method:@"PUT"];
             [self initResponseReceivedFor:_webServer method:@"GET"];
@@ -105,7 +108,7 @@ RCT_EXPORT_METHOD(start:(NSInteger) port
             [self initResponseReceivedFor:_webServer method:@"OPTIONS"];
             [self initResponseReceivedFor:_webServer method:@"HEAD"];
             [self initResponseReceivedFor:_webServer method:@"PATCH"];
-            
+
             [_webServer startWithPort:port bonjourName:serviceName];
             resolve(@{@"serverName": _webServer.serverName,
                       @"serverURL": _webServer.serverURL.absoluteURL});
@@ -125,7 +128,7 @@ RCT_EXPORT_METHOD(stop: (RCTPromiseResolveBlock) resolve rejecter:(RCTPromiseRej
         [_webServer removeAllHandlers];
         _webServer = nil;
     }
-    
+
     resolve(nil);
 }
 
