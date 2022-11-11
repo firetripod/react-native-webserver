@@ -17,7 +17,7 @@ export interface Response {
 }
 
 export declare class HttpServer {
-  static isRunning: boolean;
+  static isRunning(): boolean;
   static start(
     port: number,
     name: string,

@@ -6,15 +6,13 @@ const HttpServerModuleEmitter = new NativeEventEmitter(HttpServerModule);
 
 export class HttpServer  {
   static get isRunning() {
-    return HttpServerModule.isRunning === '1'
+    return HttpServerModule.isRunning() === '1'
   }
 
   static async start (port, name, callback) {
     if (port === 80) {
       throw 'Invalid server port specified. Port 80 is reserved.';
     }
-
-    const result = await HttpServerModule.start(port, name);
 
     HttpServerModuleEmitter.addListener(HTTP_SERVER_RESPONSE_RECEIVED, request => {
       callback(request, {
@@ -24,7 +22,7 @@ export class HttpServer  {
         sendFile: path => HttpServerModule.responseFile(request.requestId, path),
       });
     });
-    return result;
+    return await HttpServerModule.start(port, name);
   }
 
   static async stop () {
